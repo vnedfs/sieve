@@ -1,0 +1,58 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.7, pytest-9.0.3, pluggy-1.6.0 -- /Users/dhivyam/workshop/SFU/TERM04/Networking/project/sieve/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/dhivyam/workshop/SFU/TERM04/Networking/project/sieve
+collecting ... collected 32 items
+
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_instruction_pattern_detected[DAN_v1] PASSED [  3%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_instruction_pattern_detected[DAN_v2] PASSED [  6%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_suspicious_keywords_detected[DAN_v1] PASSED [  9%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_suspicious_keywords_detected[DAN_v2] PASSED [ 12%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_risk_score_elevated[DAN_v1] PASSED [ 15%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_risk_score_elevated[DAN_v2] PASSED [ 18%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_risk_level_at_least_high[DAN_v1] PASSED [ 21%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_risk_level_at_least_high[DAN_v2] PASSED [ 25%]
+tests/test_forbidden_dataset.py::TestNormalisationDetection::test_dan_v2_bypass_escalation_detected PASSED [ 28%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_cso_taint_is_untrusted[DAN_v1] PASSED [ 31%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_cso_taint_is_untrusted[DAN_v2] PASSED [ 34%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_cso_summary_is_structured_json[DAN_v1] PASSED [ 37%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_cso_summary_is_structured_json[DAN_v2] PASSED [ 40%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_cso_summary_contains_no_raw_injection[DAN_v1] PASSED [ 43%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_cso_summary_contains_no_raw_injection[DAN_v2] PASSED [ 46%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_quarantine_raises_instruction_pattern_flag[DAN_v1] PASSED [ 50%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_quarantine_raises_instruction_pattern_flag[DAN_v2] PASSED [ 53%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_quarantine_risk_level_elevated[DAN_v1] PASSED [ 56%]
+tests/test_forbidden_dataset.py::TestQuarantineStage::test_quarantine_risk_level_elevated[DAN_v2] PASSED [ 59%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_pipeline_does_not_crash[DAN_v1] PASSED [ 62%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_pipeline_does_not_crash[DAN_v2] PASSED [ 65%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_pipeline_produces_actions[DAN_v1] PASSED [ 68%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_pipeline_produces_actions[DAN_v2] PASSED [ 71%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_no_action_approved_with_taint_violation[DAN_v1] PASSED [ 75%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_no_action_approved_with_taint_violation[DAN_v2] PASSED [ 78%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_critical_risk_actions_rejected_or_require_approval[DAN_v1] PASSED [ 81%]
+tests/test_forbidden_dataset.py::TestFullPipeline::test_critical_risk_actions_rejected_or_require_approval[DAN_v2] PASSED [ 84%]
+tests/test_forbidden_dataset.py::TestDatasetScale::test_all_29_rows_process_without_crash PASSED [ 87%]
+tests/test_forbidden_dataset.py::TestDatasetScale::test_all_rows_produce_structured_cso PASSED [ 90%]
+tests/test_forbidden_dataset.py::TestDatasetScale::test_all_rows_detected_as_high_or_critical PASSED [ 93%]
+tests/test_forbidden_dataset.py::TestDatasetScale::test_detection_rate_is_100_percent PASSED [ 96%]
+tests/test_forbidden_dataset.py::test_print_summary_report PASSED        [100%]
+
+=============================== warnings summary ===============================
+sieve/models.py:174
+  /Users/dhivyam/workshop/SFU/TERM04/Networking/project/sieve/sieve/models.py:174: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class ToolCallSchema(pydantic.BaseModel):
+
+sieve/models.py:184
+  /Users/dhivyam/workshop/SFU/TERM04/Networking/project/sieve/sieve/models.py:184: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class ResponseSchema(pydantic.BaseModel):
+
+tests/test_forbidden_dataset.py: 138 warnings
+  /Users/dhivyam/workshop/SFU/TERM04/Networking/project/sieve/sieve/quarantine.py:176: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow(),
+
+tests/test_forbidden_dataset.py: 156 warnings
+  /Users/dhivyam/workshop/SFU/TERM04/Networking/project/sieve/sieve/audit.py:107: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 32 passed, 296 warnings in 0.13s =======================

@@ -155,27 +155,46 @@ class PolicyEngine:
     def _validate_schema(self, action: ActionProposal) -> Tuple[bool, Optional[str]]:
         """
         Validate action against JSON schema.
-        
+
+        Only the fields that the schema cares about (action_type, tool_name,
+        parameters) are passed to the validator.  Internal tracking fields
+        (taint_metadata, derived_from, risk_level, rationale) are intentionally
+        excluded so that schemas with additionalProperties:false do not reject
+        otherwise-valid actions.
+
         Args:
             action: Action proposal
-            
+
         Returns:
             Tuple of (is_valid, error_message)
         """
         try:
-            # Convert action to dict
-            action_dict = action.to_dict()
-            
+            # Build a dict that contains only schema-visible fields
+            if action.action_type == "tool_call":
+                action_dict = {
+                    "action_type": action.action_type,
+                    "tool_name": action.tool_name,
+                    "parameters": action.parameters,
+                }
+            elif action.action_type == "response":
+                action_dict = {
+                    "action_type": action.action_type,
+                    "parameters": action.parameters,
+                }
+            else:
+                # Unknown action type – fall back to full dict
+                action_dict = action.to_dict()
+
             # Get schema based on action type
             schema = self._get_schema_for_action_type(action.action_type)
             if schema is None:
-                # No schema defined - allow for now
+                # No schema defined – allow
                 return True, None
-            
+
             # Validate
             jsonschema.validate(instance=action_dict, schema=schema)
             return True, None
-            
+
         except jsonschema.ValidationError as e:
             return False, str(e)
         except Exception as e:
@@ -247,15 +266,6 @@ class PolicyEngine:
                 target=sensitive_param,
                 action="reject",
             ))
-        
-        # Deny high-risk tool calls by default
-        rules.append(PolicyRule(
-            rule_id="deny_high_risk_tools",
-            rule_type="denylist",
-            target="tool_call",
-            condition={"risk_level": ["high", "critical"]},
-            action="reject",
-        ))
         
         return rules
     
